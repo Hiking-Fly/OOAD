@@ -322,8 +322,8 @@ public class Controller extends HttpServlet {
 			try 
 			{
 				String root ="root";
-				String password = "Fathihachellam.1";
-				String url = "jdbc:mysql://localhost:3306/ooad?autoReconnect=true&&useSSL=false";
+				String password = "Ab@1";
+				String url="jdbc:mysql://localhost:3306/ooad?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
 				String driver = "com.mysql.jdbc.Driver";
 				Connection con;
 				
@@ -353,11 +353,6 @@ public class Controller extends HttpServlet {
 			{
 				e.printStackTrace();
 			}
-			
-//			System.out.println(email);
-//			System.out.println(comment);
-//			System.out.println(title);
-//			System.out.println(time);
 			
 			request.setAttribute("title", title);
 			request.getRequestDispatcher("ViewArticle.jsp").forward(request, response);

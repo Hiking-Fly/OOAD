@@ -44,7 +44,7 @@ public class AdminController extends HttpServlet {
 	{
 		String page = request.getParameter("page");
 		
-		if(page.equals("admin"))
+		if(page.equals("admin"))//µÇÂ¼
 		{
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
