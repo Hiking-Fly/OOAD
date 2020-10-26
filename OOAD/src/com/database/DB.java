@@ -11,24 +11,22 @@ import com.javaBean.Author;
 
 public class DB {
 
-	public String root = "root";
-	public String url = "jdbc:mysql://localhost:3306/ooad?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
-	public String password = "Ab@1";
-	public String Driver = "com.mysql.jdbc.Driver";
-	public Connection con;
+	public static String root = "root";
+	public static String url = "jdbc:mysql://localhost:3306/ooad?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
+	public static String password = "Ab@1";
+	public static String Driver = "com.mysql.jdbc.Driver";
+	public static Connection con;
     
-	public void connect() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		try {
 			Class.forName(Driver);
 
 			con = DriverManager.getConnection(url, root, password);
 
-		}
-
-		catch (ClassNotFoundException e) {
+		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
+		return con;
 	}
 
 	public void close() throws SQLException {
@@ -36,8 +34,7 @@ public class DB {
 	}
 
 	public void updateArticle(Article a) throws SQLException {
-		connect();
-
+		con=getConnection();
 		String sql = "update article set title=?, highlight=?, abstracts=?, time=? where title=?";
 
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -53,7 +50,7 @@ public class DB {
 	}
 
 	public void deleteArticle(String title) throws SQLException {
-		connect();
+		con=getConnection();
 
 		String sql = "delete from article where title=?";
 
@@ -67,7 +64,7 @@ public class DB {
 	}
 
 	public void deleteComment(String comment) throws SQLException {
-		connect();
+		con=getConnection();
 
 		String sql = "delete from comments where comment=?";
 
@@ -81,7 +78,7 @@ public class DB {
 	}
 
 	public void addAuthor(Author a) throws SQLException {
-		connect();
+		con=getConnection();
 
 		String sql = "insert into author(email,password) values(?,?)";
 
@@ -96,7 +93,7 @@ public class DB {
 	}
 
 	public boolean checkAuthor(Author a) throws SQLException {
-		connect();
+		con=getConnection();
 
 		boolean result = false;
 		int i = 0;
@@ -121,7 +118,7 @@ public class DB {
 	}
 
 	public boolean checkblockauthor(String email) throws SQLException {
-		connect();
+		con=getConnection();
 
 		boolean result = false;
 		int i = 0;
@@ -145,7 +142,7 @@ public class DB {
 	}
 
 	public void blockAuthor(String author) throws SQLException {
-		connect();
+		con=getConnection();
 
 		String sql = "insert into block_author(email) values(?)";
 
@@ -159,7 +156,7 @@ public class DB {
 	}
 
 	public void releaseAuthor(String author) throws SQLException {
-		connect();
+		con=getConnection();
 
 		String sql = "delete from block_author where email=?";
 
@@ -173,7 +170,7 @@ public class DB {
 	}
 
 	public boolean checktitle(String title) throws SQLException {
-		connect();
+		con=getConnection();
 
 		boolean result = false;
 		int i = 0;
@@ -197,7 +194,7 @@ public class DB {
 	}
 
 	public boolean check_popular(String ip, String title, int a) throws SQLException {
-		connect();
+		con=getConnection();
 
 		boolean result = false;
 		int i = 0;
@@ -248,7 +245,7 @@ public class DB {
 	 * 
 	 */
 	public boolean check_comments_popular(String ip, int id, int a) throws SQLException {
-		connect();
+		con=getConnection();
 
 		boolean result = false;
 		int i = 0;

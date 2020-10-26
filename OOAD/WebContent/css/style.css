@@ -254,7 +254,7 @@ div {
 }
 
 .div3 {
-	margin: 0px auto;
+	margin:10px auto;
 	width: 60%;
 	border: 1px solid gray;
 	border-radius: 5px;
@@ -283,16 +283,10 @@ div {
 	margin-left: 50px;
 	font-size: 18px;
 }
-footer
-{
-	background:blue;
-	height:40px;
-	width:100%;
-	color:white;
-	text-align:center;
-	padding:5px;
-	font-size:20px;
-	position:fixed;
-	bottom:0;
-	margin-top:50px;
+.footer
+{	background-color:blue;
+	width: 100%;
+	line-height: 40px;
+	text-align: center;
+	color: #fff;
 }

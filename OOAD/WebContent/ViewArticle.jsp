@@ -140,10 +140,10 @@ select * from comments where title="${ title}"
 <%-- This block is the comment box, where the comment, user, and time are 
 	 going to be displayed. 
  --%>
-
-<c:forEach items="${ result2.rows}" var="row">
 	<div class="div3">
-		<table>
+	<table>
+	<c:forEach items="${ result2.rows}" var="row">
+		
 			<tr>
 				<td><a> <c:out value="${ row.user}"></c:out>
 				</a></td>
@@ -187,8 +187,6 @@ select * from comments_ip where prefer=0 and id="${ row.id}";
 
 						<c:set var="r" value="${ r+1}"></c:set>
 					</c:forEach>
-
-
 					<form action="/OOAD/Controller" method="post" class="popularity">
 						<input type="hidden" name="page" value="comments_dislike">
 						<input type="hidden" name="id" value="${ row.id}"> <input
@@ -201,12 +199,11 @@ select * from comments_ip where prefer=0 and id="${ row.id}";
 
 				</td>
 			</tr>
+		
+		</c:forEach>
 		</table>
 	</div>
 
-	<br>
-	<br>
 
-</c:forEach>
 
 <%@include file="/common/foot.jsp"%>
