@@ -29,11 +29,11 @@ public class DB {
 		return con;
 	}
 
-	public void close() throws SQLException {
+	public static void close() throws SQLException {
 		con.close();
 	}
 
-	public void updateArticle(Article a) throws SQLException {
+	public static  void updateArticle(Article a) throws SQLException {
 		con=getConnection();
 		String sql = "update article set title=?, highlight=?, abstracts=?, time=? where title=?";
 
@@ -49,7 +49,7 @@ public class DB {
 		close();
 	}
 
-	public void deleteArticle(String title) throws SQLException {
+	public static  void deleteArticle(String title) throws SQLException {
 		con=getConnection();
 
 		String sql = "delete from article where title=?";
@@ -63,7 +63,7 @@ public class DB {
 
 	}
 
-	public void deleteComment(String comment) throws SQLException {
+	public static  void deleteComment(String comment) throws SQLException {
 		con=getConnection();
 
 		String sql = "delete from comments where comment=?";
@@ -77,7 +77,7 @@ public class DB {
 
 	}
 
-	public void addAuthor(Author a) throws SQLException {
+	public static  void addAuthor(Author a) throws SQLException {
 		con=getConnection();
 
 		String sql = "insert into author(email,password) values(?,?)";
@@ -92,7 +92,7 @@ public class DB {
 
 	}
 
-	public boolean checkAuthor(Author a) throws SQLException {
+	public  static boolean checkAuthor(Author a) throws SQLException {
 		con=getConnection();
 
 		boolean result = false;
@@ -117,7 +117,7 @@ public class DB {
 		return result;
 	}
 
-	public boolean checkblockauthor(String email) throws SQLException {
+	public static  boolean checkblockauthor(String email) throws SQLException {
 		con=getConnection();
 
 		boolean result = false;
@@ -141,7 +141,7 @@ public class DB {
 		return result;
 	}
 
-	public void blockAuthor(String author) throws SQLException {
+	public  static void blockAuthor(String author) throws SQLException {
 		con=getConnection();
 
 		String sql = "insert into block_author(email) values(?)";
@@ -155,7 +155,7 @@ public class DB {
 
 	}
 
-	public void releaseAuthor(String author) throws SQLException {
+	public static void releaseAuthor(String author) throws SQLException {
 		con=getConnection();
 
 		String sql = "delete from block_author where email=?";
@@ -169,7 +169,7 @@ public class DB {
 
 	}
 
-	public boolean checktitle(String title) throws SQLException {
+	public static boolean checktitle(String title) throws SQLException {
 		con=getConnection();
 
 		boolean result = false;
@@ -193,7 +193,7 @@ public class DB {
 		return result;
 	}
 
-	public boolean check_popular(String ip, String title, int a) throws SQLException {
+	public static boolean check_popular(String ip, String title, int a) throws SQLException {
 		con=getConnection();
 
 		boolean result = false;
@@ -244,7 +244,7 @@ public class DB {
 	 * required operation is dislike, and a = 1 if it's like.
 	 * 
 	 */
-	public boolean check_comments_popular(String ip, int id, int a) throws SQLException {
+	public static boolean check_comments_popular(String ip, int id, int a) throws SQLException {
 		con=getConnection();
 
 		boolean result = false;

@@ -26,7 +26,6 @@
 		</tr>
 
 		<tr>
-
 			<td><label for="highlights">Title:</label><input type="text"
 				name="highlights" placeholder="Enter highlights" id="highlights"
 				required></td>
