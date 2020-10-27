@@ -39,8 +39,7 @@
 		<tr>
 			<td><input type="file" name="file" required></td>
 		</tr>
-
-
+					
 		<tr>
 			<td><button>Post</button></td>
 		</tr>

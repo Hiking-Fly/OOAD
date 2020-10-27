@@ -93,8 +93,11 @@ select * from user_ip where prefer=0 and title="${ title}";
 							<i class="fa fa-thumbs-o-down"></i>
 						</button>
 						<c:out value="${y}"></c:out>
-					</form> <a class="download"
-					href="DownloadServlet?fileName=${ row.filename}">Download</a>
+					</form >
+					<form action="DownloadServlet" method="get">
+					<input type="hidden" name="fileName" class="download" value="${ row.filename}">
+					<button>Download</button>
+					</form>
 				<td>
 			</tr>
 
