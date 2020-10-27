@@ -2,7 +2,6 @@ package com.javaBeans;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -239,11 +238,10 @@ public class Controller extends HttpServlet {
 			String email = request.getParameter("email");
 			
 			boolean status = false;
-			DB db = new DB();
 			
 			try
 			{
-				status = db.checkblockauthor(email);	
+				status = DB.checkblockauthor(email);	
 			}
 			
 			catch(SQLException e)
@@ -296,7 +294,6 @@ public class Controller extends HttpServlet {
 			if(comment2.contains("fuck") || comment2.contains("motherfucker") || comment2.contains("nigga") || comment2.contains("bitch")
 					 || comment2.contains("idiot") || comment2.contains("stupid") || comment2.contains("dick") || comment2.contains("boobs") || comment2.contains("pussy") || comment2.contains("suck"))
 			{
-//				System.out.println("illegal");
 				request.setAttribute("title", title);
 				request.setAttribute("msg", "using improper words, please use proper words");
 				request.getRequestDispatcher("ViewArticle.jsp").forward(request, response);
@@ -308,17 +305,9 @@ public class Controller extends HttpServlet {
 			
 			try 
 			{
-				String root ="root";
-				String password = "Ab@1";
-				String url="jdbc:mysql://localhost:3306/ooad?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
-				String driver = "com.mysql.jdbc.Driver";
-				Connection con;
-				
-				Class.forName(driver);
-				
 				String sql = "insert into comments (title, user, comment, time) values (?,?,?,?)";
 				
-				con = DriverManager.getConnection(url, root, password);
+				Connection con = DB.getConnection();
 				
 				PreparedStatement ps = con.prepareStatement(sql);
 				
@@ -330,12 +319,6 @@ public class Controller extends HttpServlet {
 				ps.executeUpdate();
 				
 			} 
-			
-			catch (ClassNotFoundException e1) 
-			{
-				e1.printStackTrace();
-			}
-			
 			catch(SQLException e)
 			{
 				e.printStackTrace();

@@ -53,12 +53,11 @@ public class AdminController extends HttpServlet {
 			a.setEmail(email);
 			a.setPassword(password);
 			
-			DB db = new DB();
 			boolean status = false;
 			
 			try
 			{
-				status = db.checkAuthor(a);
+				status = DB.checkAuthor(a);
 			}
 			
 			catch(SQLException e)
@@ -97,11 +96,9 @@ public class AdminController extends HttpServlet {
 				a.setEmail(email);
 				a.setPassword(password);
 				
-				DB db = new DB();
-				
 				try
 				{
-					db.addAuthor(a);
+					DB.addAuthor(a);
 				}
 				
 				catch(SQLException e)
@@ -121,11 +118,12 @@ public class AdminController extends HttpServlet {
 		if(page.equals("home"))
 		{
 			String email = request.getParameter("email");
+			request.setAttribute("email", email);
 			request.getRequestDispatcher("AdminHome.jsp").forward(request, response);
 		}
 		
 		if(page.equals("logout"))
-		{
+		{	
 			request.getRequestDispatcher("Admin.jsp").forward(request, response);
 		}
 		
@@ -147,34 +145,6 @@ public class AdminController extends HttpServlet {
 			String highlights = request.getParameter("highlights");
 			String abstracts = request.getParameter("abstracts");
 			Timestamp time = new Timestamp(System.currentTimeMillis());
-			
-
-			DB db = new DB();
-/*			boolean checkstatus = false;
-			
-			try
-			{
-				checkstatus = db.checktitle(title);	
-			}
-			
-			catch(SQLException e)
-			{
-				e.printStackTrace();
-			}
-			
-			if(checkstatus)
-			{
-				JOptionPane.showMessageDialog(null, "Article Title is already exist please try anotherone ", "Info", JOptionPane.INFORMATION_MESSAGE);
-				
-				request.setAttribute("title", title);
-				request.setAttribute("highlights", highlights);
-				request.setAttribute("abstracts", abstracts);
-				request.getRequestDispatcher("AdminEdit.jsp").forward(request, response);
-			}
-			
-			else
-			{				
-*/			
 			
 			if(title.length() > 100)
 			{
@@ -210,11 +180,10 @@ public class AdminController extends HttpServlet {
 				a.setTime(time);
 				a.setOldtitle(oldtitle);
 				
-//				DB db = new DB();
 				
 				try
 				{
-					db.updateArticle(a);
+					DB.updateArticle(a);
 				}
 				
 				catch(SQLException e)
@@ -224,19 +193,15 @@ public class AdminController extends HttpServlet {
 				
 				request.getRequestDispatcher("AdminHome.jsp").forward(request, response);
 			}
-//		} else
-			
 		}
 		
 		if(page.equals("delete"))
 		{
 			String title = request.getParameter("title");
 			
-			DB db = new DB();
-			
 			try
 			{
-				db.deleteArticle(title);
+				DB.deleteArticle(title);
 			}
 			
 			catch(SQLException e)
@@ -275,11 +240,9 @@ public class AdminController extends HttpServlet {
 		{
 			String title = request.getParameter("title");
 			
-			DB db = new DB();
-			
 			try
 			{
-				db.deleteArticle(title);
+				DB.deleteArticle(title);
 			}
 			
 			catch(SQLException e)
@@ -302,11 +265,9 @@ public class AdminController extends HttpServlet {
 		{
 			String comment = request.getParameter("comment");
 			
-			DB db = new DB();
-			
 			try
 			{
-				db.deleteComment(comment);
+				DB.deleteComment(comment);
 			}
 			
 			catch(SQLException e)
@@ -321,11 +282,9 @@ public class AdminController extends HttpServlet {
 		{
 			String author = request.getParameter("author");
 			
-			DB db = new DB();
-			
 			try
 			{
-				db.blockAuthor(author);
+				DB.blockAuthor(author);
 			}
 			
 			catch(SQLException e)
@@ -340,11 +299,9 @@ public class AdminController extends HttpServlet {
 		{
 			String author = request.getParameter("author");
 			
-			DB db = new DB();
-			
 			try
 			{
-				db.releaseAuthor(author);
+				DB.releaseAuthor(author);
 			}
 			
 			catch(SQLException e)
