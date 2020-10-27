@@ -14,6 +14,7 @@
 			<input type="hidden" name="page" value="select"> <select
 				name="option">
 				<option value="Articles">Articles</option>
+				<option value="Comments">Comments</option>
 			</select>
 			<button>go</button>
 		</form>

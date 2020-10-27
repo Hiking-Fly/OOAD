@@ -9,6 +9,31 @@ public class Article {
 	public Timestamp time;
 	
 	
+	public Article() {
+		super();
+	}
+	
+	public Article(String subject, String title, String author, String highlights, String abstracts, String oldtitle,
+			String comment, String user, Timestamp time) {
+		super();
+		this.subject = subject;
+		this.title = title;
+		this.author = author;
+		this.highlights = highlights;
+		this.abstracts = abstracts;
+		this.oldtitle = oldtitle;
+		this.comment = comment;
+		this.user = user;
+		this.time = time;
+	}
+
+	@Override
+	public String toString() {
+		return "Article [subject=" + subject + ", title=" + title + ", author=" + author + ", highlights=" + highlights
+				+ ", abstracts=" + abstracts + ", oldtitle=" + oldtitle + ", comment=" + comment + ", user=" + user
+				+ ", time=" + time + "]";
+	}
+
 	public String getSubject() {
 		return subject;
 	}
@@ -63,7 +88,4 @@ public class Article {
 	public void setOldtitle(String oldtitle) {
 		this.oldtitle = oldtitle;
 	}
-	
-	
-
 }

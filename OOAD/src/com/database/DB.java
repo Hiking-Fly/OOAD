@@ -67,7 +67,6 @@ public class DB {
 		con=getConnection();
 
 		String sql = "delete from comments where comment=?";
-
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setString(1, comment);
