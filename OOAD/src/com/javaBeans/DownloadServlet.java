@@ -1,154 +1,53 @@
 package com.javaBeans;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 
 @WebServlet("/DownloadServlet")
 public class DownloadServlet extends HttpServlet {
-	
-	public static int  BUFFER_SIZE = 1024*100;
-	public static final String UPLOAD_DIR = "resources";
-	public static String fn = null;
-	
+
 	private static final long serialVersionUID = 1L;
-       
 
-    public DownloadServlet() 
-    {
-        super();
-
-    }
-
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		
-//		fn = request.getParameter("fileName");
-		
-		response.setContentType("text/html");  
-	      
-		PrintWriter out = response.getWriter();  
-	      String filename = request.getParameter("fileName");   
-	      String filepath = request.getServletContext().getRealPath("")+  UPLOAD_DIR+  File.separator;
-	      response.setContentType("APPLICATION/OCTET-STREAM");   
-	      response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");
-	      
-	     // System.out.println(filename);
-	     // System.out.println(filepath);
-	      
-	      //use inline if you want to view the content in browser, helpful for pdf file
-	      //response.setHeader("Content-Disposition","inline; filename=\"" + filename + "\"");
-	      FileInputStream fileInputStream = new FileInputStream(filepath + filename);  
-	                  
-	      int i;   
-	      while ((i=fileInputStream.read()) != -1) {  
-	      out.write(i);   
-	      }   
-	      fileInputStream.close();   
-	      out.close();   
-	      }  
-		
-		
-/*		if(fn.equals("") || fn == null)
-		{
-			response.setContentType("text/html");
-			response.getWriter().println("File : " +fn+" is not exist ");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html");
+		response.addHeader("content-Type", "application/octet-stream");// 二进制，任意文件类型
+		String agent = request.getHeader("User-Agent");
+		String fileName = request.getParameter("fileName");
+		System.out.println(fileName);
+		String filepath = "D:\\upload\\";
+		if (agent.toLowerCase().indexOf("firefox") != -1) {// 解決firefox乱码
+			response.addHeader("content-Disposition", "attachment;filename==?UTF-8?B?"
+					+ new String(Base64.encodeBase64(fileName.getBytes("UTF-8"))) + "?=");
+		} else {
+			response.addHeader("content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "utf-8"));
 		}
-		
-		else
-		{
-			String serverpath = request.getServletContext().getRealPath("");
-			String downloadPath = serverpath + UPLOAD_DIR;
-			String filepath = downloadPath + File.separator + fn;
-			
-			System.out.println(fn);
-			System.out.println(filepath);
-			System.out.println("filename:" +fn);
-			System.out.println("filepath:" +filepath);
-			
-			File file = new File(filepath);
-			
-			OutputStream os = null;
-			FileInputStream is = null;
-			
-			if(file.exists())
-			{
-				String mimetype ="APPLICATION/OCTET-STREAM";
-				response.setContentType(mimetype);
-				
-				String headerKey = "Content-Disposition";
-				String headervalue = String.format("attachment; filename=\""+fn+"\"");
-				response.setHeader(headerKey, headervalue);
-				
-				try
-				{
-					os = response.getOutputStream();
-					is = new FileInputStream(file);
-					
-					int i; 
-					
-				    while ((i=is.read()) != -1) 
-				    {  
-				      out.write(i);   
-				    }   
-				      
-				    is.close();   
-				      out.close();  
-					
-					byte[] buffer = new byte[BUFFER_SIZE];
-					int bytesread = -1;
-					
-					while((bytesread = is.read(buffer)) != -1)
-					{
-						os.write(buffer, 0, bytesread);
-					}
-				}
-				
-				catch(IOException e)
-				{
-					System.out.println("exception while performe: " +e.getMessage());
-				}
-				
-				finally
-				{
-					if(is != null)
-					{
-						is.close();
-					}
-					
-					os.flush();
-					
-					if(os != null)
-					{
-						os.close();
-					}
-				}
-			}
-			
-			else
-			{
-				response.setContentType("text/html");
-				
-				response.getWriter().println("file: "+fn+" not exist");
-			}
+		ServletOutputStream servletOutputStream = response.getOutputStream();
+		FileInputStream fileInputStream = new FileInputStream(filepath + fileName);
+		byte[] buffer = new byte[1024];
+		int lenth = 0;
+		while ((lenth = fileInputStream.read(buffer)) != -1) {
+			servletOutputStream.write(buffer, 0, lenth);
 		}
-		
+		fileInputStream.close();
+		servletOutputStream.close();
+
 	}
-*/
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

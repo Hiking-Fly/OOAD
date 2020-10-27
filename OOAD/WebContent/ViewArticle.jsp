@@ -3,8 +3,6 @@
 <%@include file="/common/head.jsp"%>
 <%@include file="/common/header1.jsp"%>
 
-
-
 <sql:query var="result" dataSource="${ db}">
 select * from article where title="${ title}";
 </sql:query>
