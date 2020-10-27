@@ -20,11 +20,6 @@ import com.database.DB;
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
         
-    public Controller() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String page = request.getParameter("page");
@@ -44,8 +39,6 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String page = request.getParameter("page");
-		
-		
 		if(page.equals("like"))
 		{
 			String ip = request.getRemoteAddr();
@@ -53,12 +46,11 @@ public class Controller extends HttpServlet {
 			
 			int a = 1;
 			
-			DB db = new DB();
 			boolean status = false;
 			
 			try
 			{
-				status = db.check_popular(ip, title, a);	
+				status = DB.check_popular(ip, title, a);	
 			}
 			
 			catch(SQLException e)
@@ -87,13 +79,10 @@ public class Controller extends HttpServlet {
 			String title = request.getParameter("title");
 			
 			int a = 0;
-			
-			DB db = new DB();
 			boolean status = false;
-			
 			try
 			{
-				status = db.check_popular(ip, title, a);	
+				status = DB.check_popular(ip, title, a);	
 			}
 			
 			catch(SQLException e)
@@ -125,12 +114,11 @@ public class Controller extends HttpServlet {
 			
 			int a = 1;
 			
-			DB db = new DB();
 			boolean status = false;
 			
 			try
 			{
-				status = db.check_comments_popular(ip, id, a);	
+				status = DB.check_comments_popular(ip, id, a);	
 			}
 			
 			catch(SQLException e)
@@ -163,12 +151,11 @@ public class Controller extends HttpServlet {
 			
 			int a = 0;
 			
-			DB db = new DB();
 			boolean status = false;
 			
 			try
 			{
-				status = db.check_comments_popular(ip, id, a);	
+				status = DB.check_comments_popular(ip, id, a);	
 			}
 			
 			catch(SQLException e)

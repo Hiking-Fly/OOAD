@@ -35,11 +35,6 @@ select * from article where title like '%<%=request.getAttribute("search2")%>%' 
 <br>
 <br>
 
-<!-- When the user enters a search keyword, that keyword is sent to the servlet "Controller.java" where the servlet
-looks for an HTTP request parameter called "search2", then extracts the search keyword and assigns it to request 
-attribute, that attribute is redirected to this page.
-In the following search query we are searching for the keyword assigned to "search2" from the "Controller.java" servlet.
-And then the search results are stored in the variable "result2". -->
 <sql:query var="result2" dataSource="${db}">
 select * from comments where comment like '%<%=request.getAttribute("search2")%>%' order by time desc
 </sql:query>
