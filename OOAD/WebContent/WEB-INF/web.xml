@@ -41,4 +41,14 @@
     <servlet-name>down</servlet-name>
     <url-pattern>/down</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>validateController</display-name>
+    <servlet-name>validateController</servlet-name>
+    <servlet-class>com.javaBeans.validateController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>validateController</servlet-name>
+    <url-pattern>/validateController</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -28,14 +28,26 @@ import com.database.DB;
 @WebServlet("/UploadServlet")
 public class UploadServlet extends HttpServlet {
 
-
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		String code = (String) request.getSession().getAttribute("verifyCodeValue");
+		String textCode = request.getParameter("verifyCode");
+		if (!code.equals(textCode)) {
+			JOptionPane.showMessageDialog(null,
+					"—È÷§¬Î ‰»Î¥ÌŒÛ£°", "Info",
+					JOptionPane.INFORMATION_MESSAGE);
+			try {
+				request.getRequestDispatcher("PostArticle.jsp").forward(request, response);
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+		}
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e1) {

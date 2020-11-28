@@ -75,13 +75,16 @@ header input
 .form1 label{
 	width:40%;
 }
-.form1 input {
-	width:60%;
+.form1 input{
+	width:40%;
 	margin-bottom: 15px;
 	border-radius: 3px;
 	padding-left: 5px;
 }
-
+.form1 input[type=file]{
+	width:60%;
+	margin: 10px auto;
+}
 table {
 	text-align: center;
 	margin: 0px auto;

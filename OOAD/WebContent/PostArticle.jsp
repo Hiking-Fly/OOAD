@@ -39,12 +39,26 @@
 		<tr>
 			<td><input type="file" name="file" required></td>
 		</tr>
-					
+
+		<tr>
+			<td><input type="text" name="verifyCode" class="verifyCode">
+				<img src="" onclick="changeCode()" id="verifyCode-img" /><a
+				href="javascript:changeCode()">看不清&nbsp;换一张</a></td>
+		</tr>
 		<tr>
 			<td><button>Post</button></td>
 		</tr>
 
 	</table>
 </form>
+<script type="text/javascript">
+	function changeCode() {
+		var Oimg = document.getElementById("verifyCode-img");
+		Oimg.src = "validateController?time=" + new Date().getTime();
+	}
+	window.onload = function() {
+		changeCode();
+	}
+</script>
 
 <%@include file="/common/foot.jsp"%>
